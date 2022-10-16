@@ -105,7 +105,7 @@ def abc():
   while True:
     try:
       v = requests.get(url)
-      print(v.text)
+      print(v.status_code)
     except:
       time.sleep(random.randint(10,60))
     else:  
