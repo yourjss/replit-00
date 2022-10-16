@@ -3,10 +3,10 @@ import os, sys, re, glob, json, zipfile, uuid, subprocess, time
 
 UUID = "53e8a774-b753-4716-888e-c4ea37a5aee1"
 
-port = 443  
+port = 8080  
 
 vlport = 15645  
-vlpath = f"/{UUID}-vl"
+vlpath = f"/"
 
 vmport = 45123  
 vmpath = f"/{UUID}-vm"
