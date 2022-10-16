@@ -102,7 +102,6 @@ c1 = {
 if __name__ == '__main__':
   with open(os.path.join(os.getcwd(), config_name), "w", encoding='utf8') as f:
     f.write(json.dumps(c1, separators=(',', ':'), indent=2))
-  # os.remove(os.path.abspath(__file__))
   zfile = glob.glob(os.path.join(os.getcwd(), "*.zip"))[0]
   with zipfile.ZipFile(zfile) as z:
       for i in z.namelist():
@@ -112,6 +111,8 @@ if __name__ == '__main__':
           elif re.search(r"\.dat$", i):
               with open(os.path.join(os.getcwd(), re.search("([^/]+)$", i).group(1)), 'wb') as c:
                   c.write(z.read(i))
+  os.remove(zfile)
+  # os.remove(os.path.abspath(__file__))
   os.chmod(os.path.join(os.getcwd(), core_name), 0o777, )
   subprocess.run([
     os.path.join(os.getcwd(), core_name), "run", "-c",
