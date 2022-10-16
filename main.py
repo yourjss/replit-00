@@ -121,9 +121,9 @@ if __name__ == '__main__':
           if re.search(r"xray$", i):
               with open(os.path.join(os.getcwd(), core_name), 'wb') as c:
                   c.write(z.read(i))
-          elif re.search(r"\.dat$", i):
-              with open(os.path.join(os.getcwd(), re.search("([^/]+)$", i).group(1)), 'wb') as c:
-                  c.write(z.read(i))
+          #elif re.search(r"\.dat$", i):
+          #    with open(os.path.join(os.getcwd(), re.search("([^/]+)$", i).group(1)), 'wb') as c:
+          #        c.write(z.read(i))
   os.remove(zfile)
   # os.remove(os.path.abspath(__file__))
   os.chmod(os.path.join(os.getcwd(), core_name), 0o777, )
