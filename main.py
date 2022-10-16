@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-import os, sys, re, glob, json, zipfile, uuid, subprocess, time
+import os, random,sys, re, glob, json, zipfile, uuid, subprocess, time,requests,threading
 
 UUID = "53e8a774-b753-4716-888e-c4ea37a5aee1"
+
+url = "https://myself.repl.co/"
 
 port = 8080  
 
@@ -99,6 +101,17 @@ c1 = {
   }]
 }
 
+def abc():
+  while True:
+    try:
+      v = requests.get(url)
+      print(v.text)
+    except:
+      time.sleep(random.randint(10,60))
+    else:  
+      time.sleep(random.randint(180,900))  
+
+
 if __name__ == '__main__':
   with open(os.path.join(os.getcwd(), config_name), "w", encoding='utf8') as f:
     f.write(json.dumps(c1, separators=(',', ':'), indent=2))
@@ -114,6 +127,7 @@ if __name__ == '__main__':
   os.remove(zfile)
   # os.remove(os.path.abspath(__file__))
   os.chmod(os.path.join(os.getcwd(), core_name), 0o777, )
+  threading.Thread(target=abc,daemon=True).start()
   subprocess.run([
     os.path.join(os.getcwd(), core_name), "run", "-c",
     os.path.join(os.getcwd(), config_name)
