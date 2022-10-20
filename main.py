@@ -1,19 +1,19 @@
 #!/usr/bin/python3
 import os, random,sys, re, glob, json, zipfile, uuid, subprocess, time,requests,threading
 
-UUID = "53e8a774-b753-4716-888e-c4ea37a5aee1"
+UUID = "c81119fa-8a42-46ba-8efc-677f555a57f9"
 
-url = "https://myself.repl.co/"
+url = "https://repl.co/"
 
 port = 8080  
 
-vlport = 15645  
+vlport = 21452  
 vlpath = f"/"
 
-vmport = 45123  
+vmport = 12542  
 vmpath = f"/{UUID}-vm"
 
-trport = 17452  
+trport = 32145  
 trpath = f"/{UUID}-tr"
 
 core_name = "_"
@@ -115,19 +115,21 @@ def abc():
 if __name__ == '__main__':
   with open(os.path.join(os.getcwd(), config_name), "w", encoding='utf8') as f:
     f.write(json.dumps(c1, separators=(',', ':'), indent=2))
-  zfile = glob.glob(os.path.join(os.getcwd(), "*.zip"))[0]
-  with zipfile.ZipFile(zfile) as z:
-      for i in z.namelist():
-          if re.search(r"xray$", i):
-              with open(os.path.join(os.getcwd(), core_name), 'wb') as c:
-                  c.write(z.read(i))
-          #elif re.search(r"\.dat$", i):
-          #    with open(os.path.join(os.getcwd(), re.search("([^/]+)$", i).group(1)), 'wb') as c:
-          #        c.write(z.read(i))
-  os.remove(zfile)
+  zfile = glob.glob(os.path.join(os.getcwd(), "*.zip"))
+  if len(zfile)>0:
+    zfile = zfile[0]
+    with zipfile.ZipFile(zfile) as z:
+        for i in z.namelist():
+            if re.search(r"xray$", i):
+                with open(os.path.join(os.getcwd(), core_name), 'wb') as c:
+                    c.write(z.read(i))
+            #elif re.search(r"\.dat$", i):
+            #    with open(os.path.join(os.getcwd(), re.search("([^/]+)$", i).group(1)), 'wb') as c:
+            #        c.write(z.read(i))
+    os.remove(zfile)
   # os.remove(os.path.abspath(__file__))
   os.chmod(os.path.join(os.getcwd(), core_name), 0o777, )
-  threading.Thread(target=abc,daemon=True).start()
+  # threading.Thread(target=abc,daemon=True).start()
   subprocess.run([
     os.path.join(os.getcwd(), core_name), "run", "-c",
     os.path.join(os.getcwd(), config_name)
